@@ -1,0 +1,10 @@
+torch
+torchvision
+torchaudio
+scikit-learn
+albumentations
+pytz
+numpy
+pandas
+timm
+Pillow
