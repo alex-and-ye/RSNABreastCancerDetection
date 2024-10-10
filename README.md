@@ -2,7 +2,7 @@
 
 
 ## About
-**Term Project for Advanced Data Mining course (COMP 7944) at the University of Manitoba**
+**It began as a term project for the Advanced Data Mining course (COMP 7944) at the University of Manitoba, and later continued the research as an undergraduate summer research project.**
 
 Developement Stack
 - Python: 
@@ -10,6 +10,7 @@ Developement Stack
     - Vision Transformers
     - Image augmentation libraries
     - Scikit-learn (Classification)
+    - GMIC
 - Google Cloud Platforms: 
     - Cloud GPU training and testing
 
@@ -115,6 +116,9 @@ accuracy.
 Team Members:
 - Jase Tran
 - Christopher Vattheuer
+- Nicholas Tan Jian Hau
+- Daniel Aderemi-fawoye
+- Mia Kim
 
 Project Supervisor and Course Instructor: 
 - Dr. Carson K. Leung
