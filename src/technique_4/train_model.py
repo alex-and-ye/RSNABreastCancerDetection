@@ -116,7 +116,7 @@ def main(dataset:str, model_name:str, epochs:int, learning_rate:float, lr_p, bat
     model.to(device)
     patch_producer.to(device)
     os.makedirs("trained_models/" + model_name +"/", exist_ok=True)
-    best_name, best_accuracy = fit_model(model, patch_producer, trainloader, testloader, device, epochs, learning_rate, lr_p, max_lr, momentum, "trained_models/" + model_name + "/" + output_prefix + dataset + "_" + model_name, bias, cosine)
+    best_name, best_accuracy = fit_model(model, patch_producer, trainloader, testloader, device, epochs , learning_rate, lr_p, max_lr, momentum, "trained_models/" + model_name + "/" + output_prefix + dataset + "_" + model_name, bias, cosine)
     print("Training complete: " + best_name + " with accuracy: " + str(round(best_accuracy, 4)))
     return str(round(best_accuracy, 4))
 

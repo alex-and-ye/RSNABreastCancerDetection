@@ -21,6 +21,8 @@ torch.random.manual_seed(0)
 random.seed(0)
 np.random.seed(0)
 
+
+
 def train(epoch, max_epochs, net, patch_producer, trainloader, optimizer, scheduler, criterion, device, cosine=False):
     net.train()
     patch_producer.train()
@@ -123,7 +125,7 @@ def main(dataset:str, model_name:str, epochs:int, learning_rate:float, lr_p, bat
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Train a model on a dataset')
     parser.add_argument('--dataset', type=str, default='mammograms', help='Dataset to train on')
-    parser.add_argument('--model', type=str, default='vit', help='Model to train')
+    parser.add_argument('--model', type=str, default='resnet50', help='Model to train')
     parser.add_argument('--output_prefix', type=str, default='', help='Prefix to add to model name, to avoid overlapping experiments.')
     parser.add_argument('--epochs', type=int, default=25, help='Number of epochs to train')
     parser.add_argument('--learning_rate', type=float, default=1e-3, help='Learning rate')
@@ -149,5 +151,16 @@ if __name__ == "__main__":
                     tag = "cosine_"+str(cosine)+"_"+str(lr)+"_"+str(lr_p)+"_"+str(momentum) 
                     accuracy = main(args.dataset, args.model, args.epochs, lr, lr_p, args.batch_size, args.max_lr, momentum, tag, cosine)
                     results.append(tag + "___" + str(accuracy))
+                    
+                    # Generate the confusion matrix
+                    cm = confusion_matrix(best_targets, best_preds)
+
+                    # Extract TN, FP, FN, TP
+                    TN, FP, FN, TP = cm.ravel()
+                    results.append(TN)
+                    results.append(FP)
+                    results.append(FN)
+                    results.append(TP)
+
                     save_results(results, result_file)
 

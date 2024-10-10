@@ -15,7 +15,7 @@ from tqdm import tqdm
 
 split_path = 'data_splits/standard/'
 MODEL = "vit"
-TECHNIQUE = 4
+TECHNIQUE = 5
 
 uses_patch = [False, False, True, True, True]
 
@@ -37,10 +37,14 @@ best_models = {
     4: {
         "vit": "cosine_True_0.0005_0.0001_0.9mammograms_vit_0.643_2.pth",
         "vit_patch": "cosine_True_0.0005_0.0001_0.9mammograms_vitpatch_0.643_2.pth",
+        "resnet50": "cosine_True_0.001_0.0001_0.7mammograms_resnet50_0.638_7.pth",
+        "resnet50_patch": "cosine_True_0.001_0.0001_0.7mammograms_resnet50patch_0.638_7.pth"
     },
     5: {
-        "vit": "",
-        "resnet50": ""
+        "vit": "cosine_True_0.0005_0.001_0.9mammograms_vit_0.642_24.pth",
+        "vit_patch": "cosine_True_0.0005_0.001_0.9mammograms_vitpatch_0.642_24.pth",
+        "resnet50": "cosine_True_0.0005_0.001_0.9mammograms_resnet50_0.5_0.pth",
+        "resnet50_patch": "cosine_True_0.0005_0.001_0.9mammograms_resnet50patch_0.5_0.pth"
     },
 }
 
@@ -71,7 +75,8 @@ def get_pred_model():
         patch_path = best_models[TECHNIQUE][MODEL+"_patch"]
         patch.load_state_dict(torch.load(dir_prefix + patch_path))
         patch.eval()
-    net.load_state_dict(torch.load(dir_prefix + net_path))
+    # net.load_state_dict(torch.load(dir_prefix + net_path))
+    net.load_state_dict(torch.load(dir_prefix + net_path), strict=False)
     net.eval() 
     return net, patch    
 
@@ -140,7 +145,8 @@ def generate_data(name):
     result_csv = pd.DataFrame()
     for _, group in tqdm(grouped):
         for idx, row in group.iterrows():
-            imgs = torch.cat([imgs, get_img(str(row['patient_id']) + "_" + str(row['image_id']) + ".png").to(device)], dim=0)
+            # imgs = torch.cat([imgs, get_img(str(row['patient_id']) + "_" + str(row['image_id']) + ".png").to(device)], dim=0)
+            imgs = torch.cat([imgs, get_img(str(row['image_id']) + ".png").to(device)], dim=0)
             metas = torch.cat([metas, get_meta(row).to(device)], dim=0)
             rows.append(row.to_frame().T)
             if cnt % batch_size == 0:

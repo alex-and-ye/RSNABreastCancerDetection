@@ -34,9 +34,11 @@ def resample_data(path, technique, model):
 
 
 if __name__ == "__main__":
-    resample_data('data_splits/standard/', 1, 'resnet50')
-    resample_data('data_splits/standard/', 1, 'vit')
-    resample_data('data_splits/standard/', 3, 'resnet50')
-    resample_data('data_splits/standard/', 3, 'vit')
-    resample_data('data_splits/standard/', 4, 'vit')
+    # resample_data('data_splits/standard/', 1, 'resnet50')
+    # resample_data('data_splits/standard/', 1, 'vit')
+    # resample_data('data_splits/standard/', 3, 'resnet50')
+    # resample_data('data_splits/standard/', 3, 'vit')
+    # resample_data('data_splits/standard/', 4, 'vit')
+    resample_data('data_splits/standard/', 4, 'resnet50')
+    
     

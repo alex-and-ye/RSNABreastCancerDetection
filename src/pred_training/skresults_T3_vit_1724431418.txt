@@ -1,0 +1,30 @@
+*avg, random_forest, n_estimators: 400  max_depth: 7  , 0.6295735040221956 2291 36 51 6
+avg, svm, kernel: rbf  , 0.6091609556766864 551 1776 13 44
+avg, mlp, hidden_layer_sizes: (250,)  , 0.6113737286921644 1227 1100 20 37
+avg, knn, n_neighbors: 5  , 0.5009612557392622 2203 124 54 3
+avg, ada_boost, n_estimators: 150  , 0.5796221322537112 1435 892 29 28
+*max, random_forest, n_estimators: 400  max_depth: 9  , 0.6532844789239967 2125 202 44 13
+max, svm, kernel: rbf  , 0.6063676595873009 556 1771 13 44
+max, mlp, hidden_layer_sizes: (200,)  , 0.6511357896244694 1662 665 25 32
+max, knn, n_neighbors: 7  , 0.5622516756006906 2086 241 44 13
+max, ada_boost, n_estimators: 125  , 0.6213745580108414 678 1649 5 52
+*min, random_forest, n_estimators: 100  max_depth: 8  , 0.6440451149360293 2162 165 49 8
+min, svm, kernel: linear  , 0.622912567193661 557 1770 13 44
+min, mlp, hidden_layer_sizes: (200,)  , 0.595827773128567 1291 1036 24 33
+min, knn, n_neighbors: 5  , 0.5197943289681014 2174 153 51 6
+min, ada_boost, n_estimators: 200  , 0.6191580153650134 1612 715 26 31
+*amm, random_forest, n_estimators: 400  max_depth: 7  , 0.6175521528358929 2297 30 54 3
+amm, svm, kernel: poly  , 0.6063789684783509 1399 928 26 31
+amm, mlp, hidden_layer_sizes: (200,)  , 0.5915379337902126 2034 293 42 15
+amm, knn, n_neighbors: 3  , 0.5073319310308431 2228 99 54 3
+amm, ada_boost, n_estimators: 100  , 0.6059492306184455 1715 612 32 25
+*amms, random_forest, n_estimators: 100  max_depth: 5  , 0.4997851310700473 2326 1 57 0
+*amms, svm, kernel: poly  , 0.6051274512021351 1403 924 26 31
+amms, mlp, hidden_layer_sizes: (100,)  , 0.5091262750774659 2057 270 54 3
+amms, knn, n_neighbors: 5  , 0.5065478479180332 2233 94 54 3
+amms, ada_boost, n_estimators: 100  , 0.4997851310700473 2326 1 57 0
+*rnn, random_forest, n_estimators: 100  max_depth: 5  , 0.5 2327 0 57 0
+*rnn, svm, kernel: sigmoid  , 0.505119158015365 2310 17 56 1
+rnn, mlp, hidden_layer_sizes: (100,)  , 0.5 2327 0 57 0
+rnn, knn, n_neighbors: 3  , 0.5 2327 0 57 0
+rnn, ada_boost, n_estimators: 100  , 0.5 2327 0 57 0

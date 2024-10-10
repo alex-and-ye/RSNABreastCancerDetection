@@ -57,4 +57,4 @@ if __name__ == "__main__":
                 save_results(results, result_file)
     
     
-    #main(args.dataset, args.model, args.epochs, args.learning_rate, args.batch_size, args.max_lr, args.momentum, args.output_prefix, args.cosine)
+# main(args.dataset, args.model, args.epochs, args.learning_rate, args.batch_size, args.max_lr, args.momentum, args.output_prefix, args.cosine)

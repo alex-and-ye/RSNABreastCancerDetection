@@ -1,0 +1,30 @@
+avg, random_forest, n_estimators: 100  max_depth: 8  , 0.6739759799154095TP: 2120, FP: 207, TN: 46, FN: 11
+avg, svm, kernel: linear  , 0.6514788259863238TP: 593, FP: 1734, TN: 14, FN: 43
+avg, mlp, hidden_layer_sizes: (350,)  , 0.6745338852072166TP: 1343, FP: 984, TN: 13, FN: 44
+avg, knn, n_neighbors: 7  , 0.5938260994126916TP: 1988, FP: 339, TN: 38, FN: 19
+avg, ada_boost, n_estimators: 150  , 0.6693016382813501TP: 1259, FP: 1068, TN: 12, FN: 45
+max, random_forest, n_estimators: 250  max_depth: 7  , 0.6770746160631489TP: 1990, FP: 337, TN: 37, FN: 20
+max, svm, kernel: rbf  , 0.6164664992950791TP: 1336, FP: 991, TN: 22, FN: 35
+max, mlp, hidden_layer_sizes: (150,)  , 0.6378139159674002TP: 1605, FP: 722, TN: 25, FN: 32
+max, knn, n_neighbors: 5  , 0.5546935667488446TP: 1917, FP: 410, TN: 41, FN: 16
+max, ada_boost, n_estimators: 250  , 0.6551466763169204TP: 967, FP: 1360, TN: 6, FN: 51
+min, random_forest, n_estimators: 300  max_depth: 7  , 0.6586185058693145TP: 2169, FP: 158, TN: 49, FN: 8
+min, svm, kernel: poly  , 0.6454097211227467TP: 634, FP: 1693, TN: 15, FN: 42
+min, mlp, hidden_layer_sizes: (300,)  , 0.659606149021027TP: 1435, FP: 892, TN: 21, FN: 36
+min, knn, n_neighbors: 5  , 0.5336100242010269TP: 2075, FP: 252, TN: 47, FN: 10
+min, ada_boost, n_estimators: 100  , 0.6308250212984114TP: 1551, FP: 776, TN: 26, FN: 31
+amm, random_forest, n_estimators: 350  max_depth: 5  , 0.5887974125257277TP: 2297, FP: 30, TN: 55, FN: 2
+amm, svm, kernel: rbf  , 0.5152443851355937TP: 686, FP: 1641, TN: 16, FN: 41
+amm, mlp, hidden_layer_sizes: (100,)  , 0.511339048092944TP: 2200, FP: 127, TN: 54, FN: 3
+amm, knn, n_neighbors: 3  , 0.5268096110495405TP: 2120, FP: 207, TN: 49, FN: 8
+amm, ada_boost, n_estimators: 175  , 0.5034906777041444TP: 1964, FP: 363, TN: 49, FN: 8
+amms, random_forest, n_estimators: 100  max_depth: 5  , 0.5TP: 2327, FP: 0, TN: 57, FN: 0
+amms, svm, kernel: poly  , 0.5138156952329255TP: 703, FP: 1624, TN: 16, FN: 41
+amms, mlp, hidden_layer_sizes: (100,)  , 0.5089491024510137TP: 2268, FP: 59, TN: 55, FN: 2
+amms, knn, n_neighbors: 7  , 0.5302098176252836TP: 2141, FP: 186, TN: 49, FN: 8
+amms, ada_boost, n_estimators: 100  , 0.5TP: 2327, FP: 0, TN: 57, FN: 0
+rnn, random_forest, n_estimators: 100  max_depth: 5  , 0.5TP: 2327, FP: 0, TN: 57, FN: 0
+rnn, svm, kernel: linear  , 0.5TP: 2306, FP: 21, TN: 57, FN: 0
+rnn, mlp, hidden_layer_sizes: (100,)  , 0.5TP: 2327, FP: 0, TN: 57, FN: 0
+rnn, knn, n_neighbors: 3  , 0.5TP: 2327, FP: 0, TN: 57, FN: 0
+rnn, ada_boost, n_estimators: 100  , 0.5TP: 2327, FP: 0, TN: 57, FN: 0

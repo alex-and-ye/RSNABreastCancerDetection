@@ -8,8 +8,9 @@ import argparse
 import time
 import sys
 sys.path.append(os.path.abspath('..'))
-from training_functions import get_pred_dataset, get_model, fit_model, save_results
-from sklearn.metrics import balanced_accuracy_score
+from training_functions import get_pred_dataset, get_model, fit_model, save_results, pfbeta
+from sklearn.metrics import balanced_accuracy_score, f1_score
+from sklearn.metrics import confusion_matrix
 import random
 import numpy as np
 torch.random.manual_seed(0)
@@ -22,8 +23,10 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+
 import warnings 
 warnings.filterwarnings("ignore")
+
 
 
 def parse_group(result_df, y, group, p_type="avg"):
@@ -71,7 +74,8 @@ def parse_group(result_df, y, group, p_type="avg"):
         for i, row in group.iterrows():
             result['pred_' + str(cnt)] = row['pred']
             cnt += 1
-    result_df = result_df.append(result, ignore_index=True)
+    # result_df = result_df.append(result, ignore_index=True)
+    result_df = result_df._append(result, ignore_index=True)
     return result_df, y
     
 
@@ -109,7 +113,10 @@ def try_config(model, xTrain, yTrain, xTest, yTest):
     model.fit(xTrain, yTrain)
     yPred = model.predict(xTest)
     balanced_acc = balanced_accuracy_score(yTest, yPred)
-    return balanced_acc
+    f1 = f1_score(yTest, yPred, average='macro')
+    # Calculate confusion matrix
+    tn, fp, fn, tp = confusion_matrix(yTest, yPred).ravel()
+    return balanced_acc, f1, tn, fp, fn, tp
 
 
 def get_model(model_type, options, i):
@@ -145,13 +152,16 @@ def main(pred_type, ret_type, model_type, configs):
     
     best_acc = 0
     best_i = 0
+    best_f1 = 0
     for i in tqdm(range(size)):
         model = get_model(model_type, options, i)
-        bal_acc = try_config(model, xTrain, yTrain, xTest, yTest)
+        # bal_acc = try_config(model, xTrain, yTrain, xTest, yTest)
+        bal_acc, f1, tn, fp, fn, tp = try_config(model, xTrain, yTrain, xTest, yTest)
         if bal_acc > best_acc:
             best_acc = bal_acc
             best_i = i
-    return best_acc, best_i
+            best_f1 = f1
+    return best_acc, best_f1, best_i, tn, fp, fn, tp
     
         
 if __name__ == "__main__":
@@ -181,24 +191,34 @@ if __name__ == "__main__":
     best_acc = 0
     best_i = 0
     
-    for pred_type in ['T1_resnet50', 'T1_vit', 'T3_resnet50', 'T3_vit', 'T4_vit']:
+    for pred_type in ['T3_resnet50', 'T3_vit']:
+    # for pred_type in ['T1_resnet50', 'T1_vit']:
         print("RUNNING PRED TYPE: " + pred_type)
         f = open("skresults_" + pred_type + "_" + str(time.time()).split('.')[0] + ".txt", "w")
         all_models = ['avg', 'max', 'min', 'amm', 'amms', 'rnn']
         for ret_type in all_models: #  ['rnn']:
             print("Using ret type: " + ret_type)
+            
+            best_acc_models = 0
+            
             for model_type in ['random_forest', 'svm', 'mlp', 'knn', 'ada_boost']:
-                acc, i = main(pred_type, ret_type, model_type, configs)
-                report = ret_type + ", " + model_type + ", " + conf_to_str(configs, model_type, i) + ", " + str(acc)
-                if acc > best_acc:
-                    best_acc = acc
-                    best_i = i
-                    print("New best accuracy!") 
-                else: 
-                    print("No improvement.")
-                print(report)
-                f.write(report + "\n")
+                # if not (ret_type == 'max' and model_type == 'svm'):
+                    acc, f1, i, tn, fp, fn, tp = main(pred_type, ret_type, model_type, configs)
+                    report = ret_type + ", " + model_type + ", " + conf_to_str(configs, model_type, i) + ", " + str(acc) + " " + str(f1) + f" {tp} {fp} {tn} {fn}"
+                    if acc > best_acc:
+                        best_acc = acc
+                        best_i = i
+                        print("New best accuracy!") 
+                    else: 
+                        print("No improvement.")
+                        
+                    if acc > best_acc_models:
+                        best_acc_models = acc
+                        # mark as new best accuracy
+                        report = "*" + report
+                    
+                    print(report)
+                    f.write(report + "\n")
         f.close()
-    
     
     
