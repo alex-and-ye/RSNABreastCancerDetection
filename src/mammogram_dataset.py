@@ -9,7 +9,6 @@ import numpy as np
 
 import sys
 sys.path.append('/opt/miniconda3/lib/python3.12/site-packages')
-from google.cloud import storage
 # from IPython.display import Image
 from io import BytesIO
 from PIL import Image
@@ -92,70 +91,6 @@ class MammogramDataset(Dataset):
         if self.return_meta:
             return imgs, int(target), meta
         return imgs, int(target)
-    
-    # def __getitem__(self, index):
-    #     all_blobs = {}
-    #     client = storage.Client.from_service_account_json('/Users/nicholastan/RSNACancerDetection-main/src/generated-mote-428217-s3-1d16a74a50ba.json')
-
-    #     bucket_name = "rsna_processed_data_2"
-
-    #     bucket = client.bucket(bucket_name=bucket_name)
-
-    #     blobs = bucket.list_blobs()
-
-    #     # for blob in blobs:
-    #     #     all_blobs[blob.name] = blob
-
-    #     if torch.is_tensor(index):
-    #         index = index.tolist()
-    #     imgs = None
-    #     target_name = 'cancer'
-    #     meta = []
-    #     if self.individual:
-    #         patient_id, image_id, target = self.df.loc[index, ['patient_id', 'image_id', target_name]]
-    #         if not self.get_cancer:
-    #             target = max(target, int(self.df.loc[index, 'difficult_negative_case']))
-
-    #         # using the blobs
-    #         image_nm = str(int(image_id)) + ".png"
-    #         # image_blob = all_blobs[image_nm]
-    #         image_blob = bucket.blob(image_nm)
-    #         image_data = image_blob.download_as_bytes()
-    #         imgs = Image.open(io.BytesIO(image_data))
-
-    #         # image_location = str(self.data_path) + "/" + str(int(image_id)) + ".png"
-    #         # imgs = Image.open(image_location)
-    #         if self.transform:
-    #             imgs = self.transform(image=np.array(imgs))
-    #             imgs = imgs['image']
-    #             if self.tile:
-    #                 imgs = torch.cat((imgs, imgs, imgs), dim=0)
-    #                 imgs = imgs.expand(3, -1, -1)
-    #         self._get_meta(meta, self.df.loc[index])
-    #         if self.return_meta:
-    #             meta = meta[0]
-    #     else:
-    #         selected_patient = self.patient_list[index]
-    #         relevant_rows = self.df.loc[self.df['patient_id'] == selected_patient]
-    #         imgs = []
-    #         for row in relevant_rows.iterrows():
-    #             image_id = int(row.iloc['image_id'])
-    #             target = row.iloc[target_name]
-    #             if not self.get_cancer:
-    #                 target = max(target, int(row.iloc[index, 'difficult_negative_case']))
-    #             img = Image.open(self.data_path + "/" + selected_patient + "_" + image_id + ".png")
-    #             if self.transform:
-    #                 img = self.transform(image=np.array(img))
-    #                 img = img['image']
-    #                 if self.tile:
-    #                     img = torch.cat((img, img, img), dim=0)
-    #                     img = img.expand(3, -1, -1)
-    #                 imgs.append(img)
-    #             self._get_meta(meta, row)
-    #     if self.return_meta:
-    #         return imgs, int(target), meta
-    #     return imgs, int(target)
-
 
     def __len__(self):
         return self.data_len
